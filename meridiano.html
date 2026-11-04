@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meridiano · Estudio de producto digital</title>
+<meta name="description" content="Meridiano es un estudio de producto digital: estrategia, diseño y desarrollo de productos claros, útiles y bien construidos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f3ee;
+  --surface:#fffdf9;
+  --ink:#14201f;
+  --muted:#5b6866;
+  --line:#e2ddd3;
+  --accent:#0f5c4d;
+  --accent-ink:#ffffff;
+  --accent-2:#e2673a;
+  --accent-soft:#dcebe6;
+  --radius:18px;
+  --shadow:0 1px 2px rgba(20,32,31,.06), 0 14px 34px -14px rgba(20,32,31,.2);
+  --serif:'Fraunces', Georgia, 'Times New Roman', serif;
+  --sans:'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0e1514;
+    --surface:#151e1d;
+    --ink:#edf1ef;
+    --muted:#9fb0ad;
+    --line:#26332f;
+    --accent:#4cc3a6;
+    --accent-ink:#06201a;
+    --accent-2:#ff8a5c;
+    --accent-soft:#16312c;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 14px 34px -14px rgba(0,0,0,.6);
+  }
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{
+  font-family:var(--sans);
+  background:var(--bg);
+  color:var(--ink);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  font-size:17px;
+}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+.container{width:min(1140px, 100% - 40px);margin-inline:auto}
+.skip{position:absolute;left:-999px;top:8px;background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:8px;z-index:100}
+.skip:focus{left:12px}
+:focus-visible{outline:3px solid var(--accent-2);outline-offset:3px;border-radius:6px}
+
+/* ---------- Header ---------- */
+header.site{
+  position:sticky;top:0;z-index:50;
+  background:color-mix(in srgb, var(--bg) 82%, transparent);
+  backdrop-filter:saturate(1.4) blur(14px);
+  -webkit-backdrop-filter:saturate(1.4) blur(14px);
+  border-bottom:1px solid transparent;
+  transition:border-color .3s;
+}
+header.site.scrolled{border-bottom-color:var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:72px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-size:1.4rem;font-weight:600;letter-spacing:-.01em}
+.brand svg{width:30px;height:30px}
+.nav ul{display:flex;gap:34px;list-style:none;font-size:.95rem;font-weight:500}
+.nav ul a{color:var(--muted);transition:color .2s;position:relative}
+.nav ul a:hover{color:var(--ink)}
+.nav ul a::after{content:"";position:absolute;left:0;bottom:-6px;height:2px;width:0;background:var(--accent-2);transition:width .25s}
+.nav ul a:hover::after{width:100%}
+.menu-btn{display:none;background:none;border:1px solid var(--line);border-radius:10px;width:44px;height:44px;cursor:pointer;color:var(--ink)}
+.menu-btn span{display:block;width:18px;height:2px;background:currentColor;margin:4px auto;transition:transform .25s, opacity .25s}
+.menu-btn[aria-expanded="true"] span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.menu-btn[aria-expanded="true"] span:nth-child(2){opacity:0}
+.menu-btn[aria-expanded="true"] span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:14px 26px;border-radius:999px;
+  font-weight:600;font-size:.97rem;border:1.5px solid transparent;cursor:pointer;
+  font-family:inherit;transition:transform .2s, box-shadow .2s, background .2s, color .2s;
+}
+.btn-primary{background:var(--accent);color:var(--accent-ink)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 24px -10px var(--accent)}
+.btn-ghost{border-color:var(--line);color:var(--ink);background:transparent}
+.btn-ghost:hover{border-color:var(--ink);transform:translateY(-2px)}
+.btn svg{width:16px;height:16px;transition:transform .2s}
+.btn:hover svg{transform:translateX(3px)}
+.btn-sm{padding:10px 20px;font-size:.9rem}
+
+/* ---------- Hero ---------- */
+.hero{padding:72px 0 40px;position:relative;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:.82rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);
+}
+.eyebrow::before{content:"";width:28px;height:2px;background:var(--accent-2)}
+h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:-.02em;line-height:1.08}
+h1{font-size:clamp(2.6rem, 6vw, 4.8rem);margin:22px 0 24px}
+h1 em{font-style:italic;color:var(--accent)}
+.lead{font-size:1.2rem;color:var(--muted);max-width:34em}
+.hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:36px}
+.hero-art{position:relative;aspect-ratio:1;max-width:520px;margin-inline:auto;width:100%}
+.hero-art svg{width:100%;height:100%}
+.spin{transform-origin:260px 260px;animation:spin 60s linear infinite}
+.spin.rev{animation-duration:90s;animation-direction:reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+.float{animation:float 6s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-8px)}}
+.badge{
+  position:absolute;background:var(--surface);border:1px solid var(--line);
+  border-radius:14px;padding:12px 16px;box-shadow:var(--shadow);font-size:.85rem;line-height:1.35;
+}
+.badge strong{display:block;font-family:var(--serif);font-size:1.5rem;font-weight:600;color:var(--accent)}
+.badge.b1{left:-4%;bottom:14%}
+.badge.b2{right:-2%;top:10%}
+
+/* ---------- Metrics ---------- */
+.metrics{padding:56px 0 24px}
+.metrics-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+}
+.metric{padding:34px 24px;border-right:1px solid var(--line)}
+.metric:last-child{border-right:0}
+.metric .num{font-family:var(--serif);font-size:clamp(2.2rem,4vw,3.2rem);line-height:1;color:var(--ink)}
+.metric .num span{color:var(--accent-2)}
+.metric p{color:var(--muted);font-size:.92rem;margin-top:10px}
+
+/* ---------- Sections ---------- */
+section{padding:104px 0}
+.section-head{max-width:720px;margin-bottom:56px}
+h2{font-size:clamp(2rem,4.4vw,3.3rem);margin:16px 0 18px}
+.section-head p{color:var(--muted);font-size:1.1rem}
+
+/* ---------- Services ---------- */
+.services-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.card{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:36px;transition:transform .3s, box-shadow .3s, border-color .3s;
+  position:relative;overflow:hidden;
+}
+.card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:color-mix(in srgb, var(--accent) 40%, var(--line))}
+.card .icon{
+  width:54px;height:54px;border-radius:14px;background:var(--accent-soft);color:var(--accent);
+  display:grid;place-items:center;margin-bottom:26px;
+}
+.card .icon svg{width:26px;height:26px}
+.card h3{font-size:1.65rem;margin-bottom:12px}
+.card p{color:var(--muted)}
+.card ul{list-style:none;margin-top:22px;display:flex;flex-wrap:wrap;gap:8px}
+.card li{font-size:.8rem;font-weight:500;padding:5px 12px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.card .num{position:absolute;top:26px;right:30px;font-family:var(--serif);font-size:1rem;color:var(--line);font-weight:600}
+
+/* ---------- Process ---------- */
+.process{background:var(--ink);color:var(--bg);border-radius:36px;margin:0 20px;padding:104px 0}
+@media (prefers-color-scheme: dark){.process{background:var(--surface);border:1px solid var(--line)}}
+.process .eyebrow{color:var(--accent-2)}
+.process .section-head p{color:color-mix(in srgb, var(--bg) 68%, transparent)}
+@media (prefers-color-scheme: dark){.process .section-head p{color:var(--muted)}}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;position:relative}
+.step{position:relative;padding-top:34px;border-top:1px solid color-mix(in srgb, currentColor 22%, transparent)}
+.step::before{
+  content:"";position:absolute;top:-6px;left:0;width:11px;height:11px;border-radius:50%;background:var(--accent-2);
+}
+.step small{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;opacity:.6;font-weight:600}
+.step h3{font-size:1.7rem;margin:10px 0 12px}
+.step p{opacity:.72;font-size:.97rem}
+
+/* ---------- Work ---------- */
+.work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.work{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+  transition:transform .3s, box-shadow .3s;display:flex;flex-direction:column;
+}
+.work:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.work .art{aspect-ratio:4/3;overflow:hidden}
+.work .art svg{width:100%;height:100%;transition:transform .6s}
+.work:hover .art svg{transform:scale(1.05)}
+.work .body{padding:26px 28px 30px;display:flex;flex-direction:column;gap:10px;flex:1}
+.tag{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--accent)}
+.work h3{font-size:1.45rem}
+.work p{color:var(--muted);font-size:.95rem}
+.work .result{margin-top:auto;padding-top:16px;border-top:1px solid var(--line);font-size:.88rem;font-weight:500}
+.work .result b{color:var(--accent-2)}
+.note-demo{margin-top:28px;font-size:.85rem;color:var(--muted)}
+
+/* ---------- Contact ---------- */
+.contact-wrap{
+  display:grid;grid-template-columns:1fr 1fr;gap:56px;
+  background:var(--accent);color:var(--accent-ink);
+  border-radius:36px;padding:72px;position:relative;overflow:hidden;
+}
+.contact-wrap::after{
+  content:"";position:absolute;right:-120px;bottom:-160px;width:420px;height:420px;border-radius:50%;
+  border:1.5px solid color-mix(in srgb, var(--accent-ink) 22%, transparent);
+  box-shadow:0 0 0 60px color-mix(in srgb, var(--accent-ink) 5%, transparent), 0 0 0 120px color-mix(in srgb, var(--accent-ink) 4%, transparent);
+  pointer-events:none;
+}
+.contact-wrap .eyebrow{color:var(--accent-ink);opacity:.8}
+.contact-wrap .eyebrow::before{background:var(--accent-2)}
+.contact-wrap h2{color:inherit}
+.contact-wrap p{opacity:.85;font-size:1.08rem}
+.contact-info{margin-top:34px;display:grid;gap:10px;font-size:.98rem}
+.contact-info span{opacity:.7;display:block;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600}
+form{display:grid;gap:18px;position:relative;z-index:1;align-content:start}
+.field{display:grid;gap:7px}
+label{font-size:.85rem;font-weight:600}
+input,select,textarea{
+  font:inherit;width:100%;padding:14px 16px;border-radius:12px;border:1.5px solid transparent;
+  background:color-mix(in srgb, var(--accent-ink) 12%, transparent);color:var(--accent-ink);
+  transition:border-color .2s, background .2s;
+}
+input::placeholder,textarea::placeholder{color:color-mix(in srgb, var(--accent-ink) 55%, transparent)}
+select option{color:#14201f}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent-2);background:color-mix(in srgb, var(--accent-ink) 16%, transparent)}
+textarea{min-height:120px;resize:vertical}
+.btn-light{background:var(--accent-ink);color:var(--accent);justify-self:start}
+.btn-light:hover{transform:translateY(-2px);box-shadow:0 12px 26px -12px rgba(0,0,0,.5)}
+@media (prefers-color-scheme: dark){.btn-light{background:var(--accent-ink);color:var(--accent)}}
+.form-status{font-size:.95rem;min-height:1.4em;font-weight:500}
+
+/* ---------- Footer ---------- */
+footer{padding:64px 0 40px}
+.foot{display:flex;flex-wrap:wrap;gap:32px;justify-content:space-between;align-items:flex-start;border-top:1px solid var(--line);padding-top:40px}
+.foot p{color:var(--muted);font-size:.9rem;max-width:34em;margin-top:12px}
+.foot nav{display:flex;gap:26px;font-size:.92rem;color:var(--muted)}
+.foot nav a:hover{color:var(--ink)}
+.legal{margin-top:32px;font-size:.8rem;color:var(--muted)}
+
+/* ---------- Reveal ---------- */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .8s ease, transform .8s ease}
+.reveal.in{opacity:1;transform:none}
+.reveal[data-d="1"]{transition-delay:.1s}
+.reveal[data-d="2"]{transition-delay:.2s}
+.reveal[data-d="3"]{transition-delay:.3s}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation:none !important;transition:none !important}
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none}
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 980px){
+  .hero-grid{grid-template-columns:1fr}
+  .hero-art{max-width:420px}
+  .metrics-grid{grid-template-columns:repeat(2,1fr)}
+  .metric:nth-child(2){border-right:0}
+  .metric:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .steps{grid-template-columns:repeat(2,1fr);row-gap:44px}
+  .work-grid{grid-template-columns:1fr 1fr}
+  .contact-wrap{grid-template-columns:1fr;padding:48px 36px}
+}
+@media (max-width: 760px){
+  body{font-size:16px}
+  section{padding:72px 0}
+  .menu-btn{display:block}
+  .nav ul{
+    position:absolute;top:72px;left:0;right:0;flex-direction:column;gap:0;
+    background:var(--bg);border-bottom:1px solid var(--line);padding:8px 20px 20px;
+    display:none;
+  }
+  .nav ul.open{display:flex}
+  .nav ul li a{display:block;padding:14px 0;border-bottom:1px solid var(--line)}
+  .nav ul a::after{display:none}
+  .nav .btn-sm{display:none}
+  .services-grid,.work-grid{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr}
+  .card{padding:28px}
+  .process{margin:0 10px;border-radius:26px;padding:72px 0}
+  .contact-wrap{border-radius:26px;padding:40px 24px}
+  .badge.b1{left:0}
+  .badge.b2{right:0}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
+
+<header class="site" id="top">
+  <div class="container nav">
+    <a class="brand" href="#top" aria-label="Meridiano, inicio">
+      <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="2"/>
+        <ellipse cx="16" cy="16" rx="6" ry="14" stroke="currentColor" stroke-width="2"/>
+        <circle cx="22" cy="9" r="3.2" fill="#e2673a"/>
+      </svg>
+      Meridiano
+    </a>
+    <ul id="menu">
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#metodo">Método</a></li>
+      <li><a href="#proyectos">Proyectos</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <a class="btn btn-primary btn-sm" href="#contacto">Hablemos</a>
+    <button class="menu-btn" id="menuBtn" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="contenido">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="container hero-grid">
+    <div>
+      <span class="eyebrow reveal">Estudio de producto digital</span>
+      <h1 class="reveal" data-d="1">Diseñamos productos que se <em>entienden</em> a la primera.</h1>
+      <p class="lead reveal" data-d="2">Meridiano acompaña a equipos que quieren lanzar software claro, útil y bien construido: desde la idea inicial hasta el producto en producción.</p>
+      <div class="hero-cta reveal" data-d="3">
+        <a class="btn btn-primary" href="#contacto">Cuéntanos tu proyecto
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a class="btn btn-ghost" href="#proyectos">Ver proyectos</a>
+      </div>
+    </div>
+
+    <div class="hero-art reveal" data-d="2">
+      <svg viewBox="0 0 520 520" fill="none" role="img" aria-label="Ilustración abstracta de un globo con meridianos">
+        <defs>
+          <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+            <stop offset="0" stop-color="var(--accent-soft)"/>
+            <stop offset="1" stop-color="var(--accent-soft)" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <circle cx="260" cy="260" r="250" fill="url(#glow)"/>
+        <g stroke="var(--accent)" stroke-width="1.6" opacity=".85">
+          <circle cx="260" cy="260" r="190"/>
+          <g class="spin">
+            <ellipse cx="260" cy="260" rx="190" ry="70"/>
+            <ellipse cx="260" cy="260" rx="190" ry="130"/>
+            <ellipse cx="260" cy="260" rx="70" ry="190"/>
+            <ellipse cx="260" cy="260" rx="130" ry="190"/>
+            <line x1="260" y1="70" x2="260" y2="450"/>
+          </g>
+        </g>
+        <g class="spin rev">
+          <circle cx="260" cy="260" r="232" stroke="var(--ink)" stroke-width="1.2" stroke-dasharray="3 9" opacity=".55"/>
+          <circle cx="260" cy="28" r="9" fill="var(--accent-2)"/>
+        </g>
+        <g class="float">
+          <circle cx="260" cy="260" r="46" fill="var(--accent)"/>
+          <path d="M240 262l14 14 28-32" stroke="var(--accent-ink)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+      </svg>
+      <div class="badge b1 float"><strong>+40</strong>productos lanzados</div>
+      <div class="badge b2 float" style="animation-delay:-3s"><strong>4,8/5</strong>satisfacción media</div>
+    </div>
+  </div>
+</div>
+
+<!-- METRICS -->
+<div class="metrics">
+  <div class="container">
+    <div class="metrics-grid">
+      <div class="metric reveal"><div class="num" data-count="12">0</div><p>años de oficio</p></div>
+      <div class="metric reveal" data-d="1"><div class="num" data-count="40" data-suffix="+">0</div><p>productos lanzados</p></div>
+      <div class="metric reveal" data-d="2"><div class="num" data-count="18">0</div><p>personas en el equipo</p></div>
+      <div class="metric reveal" data-d="3"><div class="num" data-count="96" data-suffix="%">0</div><p>clientes que repiten</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="servicios">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow reveal">Qué hacemos</span>
+      <h2 class="reveal" data-d="1">Un equipo, todo el recorrido del producto</h2>
+      <p class="reveal" data-d="2">Trabajamos con equipos de producto y fundadores que necesitan criterio, ritmo y calidad de ejecución. Puedes contratarnos para una fase o para el viaje completo.</p>
+    </div>
+
+    <div class="services-grid">
+      <article class="card reveal">
+        <span class="num">01</span>
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg>
+        </div>
+        <h3>Estrategia de producto</h3>
+        <p>Definimos qué construir y por qué. Investigación con usuarios, priorización y una hoja de ruta que tu equipo puede defender.</p>
+        <ul><li>Investigación</li><li>Roadmap</li><li>Workshops</li></ul>
+      </article>
+
+      <article class="card reveal" data-d="1">
+        <span class="num">02</span>
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2.5"/><path d="M8 21h8M12 18v3"/></svg>
+        </div>
+        <h3>Diseño de interfaz</h3>
+        <p>Interfaces sobrias y accesibles, con sistemas de diseño que escalan y se mantienen sin dolor cuando el producto crece.</p>
+        <ul><li>UX / UI</li><li>Design systems</li><li>Accesibilidad</li></ul>
+      </article>
+
+      <article class="card reveal">
+        <span class="num">03</span>
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>
+        </div>
+        <h3>Desarrollo web y apps</h3>
+        <p>Código limpio, rápido y testeado. Construimos aplicaciones web y móviles listas para producción, con documentación para tu equipo.</p>
+        <ul><li>Web apps</li><li>Móvil</li><li>APIs</li></ul>
+      </article>
+
+      <article class="card reveal" data-d="1">
+        <span class="num">04</span>
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>
+        </div>
+        <h3>Datos y analítica</h3>
+        <p>Medimos lo que importa. Configuramos métricas, experimentos y paneles para que cada decisión se apoye en evidencia.</p>
+        <ul><li>Métricas</li><li>Experimentos</li><li>Paneles</li></ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="metodo">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow reveal">Nuestro método</span>
+      <h2 class="reveal" data-d="1">Cuatro pasos, sin sorpresas</h2>
+      <p class="reveal" data-d="2">Entregas cortas, decisiones visibles y un ritmo que te permite ver avances reales cada semana.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <small>Semanas 1–2</small>
+        <h3>Descubrir</h3>
+        <p>Entrevistas, análisis del contexto y mapa de oportunidades. Salimos con una visión compartida.</p>
+      </div>
+      <div class="step reveal" data-d="1">
+        <small>Semanas 3–4</small>
+        <h3>Definir</h3>
+        <p>Prototipos navegables y pruebas con usuarios para validar antes de escribir una línea de código.</p>
+      </div>
+      <div class="step reveal" data-d="2">
+        <small>Semanas 5–12</small>
+        <h3>Construir</h3>
+        <p>Sprints quincenales con demos abiertas. Calidad, rendimiento y accesibilidad desde el primer día.</p>
+      </div>
+      <div class="step reveal" data-d="3">
+        <small>Continuo</small>
+        <h3>Medir</h3>
+        <p>Lanzamos, observamos y mejoramos. Tu producto aprende de su uso real y evoluciona con criterio.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="proyectos">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow reveal">Proyectos</span>
+      <h2 class="reveal" data-d="1">Ejemplos de trabajo</h2>
+      <p class="reveal" data-d="2">Tres casos ilustrativos del tipo de producto que diseñamos y construimos.</p>
+    </div>
+
+    <div class="work-grid">
+      <article class="work reveal">
+        <div class="art" aria-hidden="true">
+          <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+            <rect width="400" height="300" fill="#0f5c4d"/>
+            <g fill="#dcebe6">
+              <rect x="50" y="170" width="44" height="90" rx="8" opacity=".5"/>
+              <rect x="112" y="130" width="44" height="130" rx="8" opacity=".65"/>
+              <rect x="174" y="150" width="44" height="110" rx="8" opacity=".8"/>
+              <rect x="236" y="90" width="44" height="170" rx="8"/>
+              <rect x="298" y="60" width="44" height="200" rx="8" fill="#e2673a"/>
+            </g>
+            <path d="M50 120 L112 100 L174 112 L236 62 L298 38" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/>
+          </svg>
+        </div>
+        <div class="body">
+          <span class="tag">Fintech · Panel de control</span>
+          <h3>Nórdica Pay</h3>
+          <p>Rediseño del panel de métricas para un servicio de pagos B2B, con foco en lectura rápida y decisiones diarias.</p>
+          <div class="result">Resultado: <b>−38 %</b> en tiempo de conciliación</div>
+        </div>
+      </article>
+
+      <article class="work reveal" data-d="1">
+        <div class="art" aria-hidden="true">
+          <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+            <rect width="400" height="300" fill="#e9e1d3"/>
+            <circle cx="200" cy="150" r="120" fill="none" stroke="#14201f" stroke-width="2" opacity=".15"/>
+            <circle cx="200" cy="150" r="84" fill="none" stroke="#14201f" stroke-width="2" opacity=".25"/>
+            <circle cx="200" cy="150" r="48" fill="#0f5c4d"/>
+            <circle cx="296" cy="96" r="14" fill="#e2673a"/>
+            <circle cx="112" cy="206" r="10" fill="#0f5c4d" opacity=".6"/>
+            <path d="M200 150 L296 96 M200 150 L112 206" stroke="#14201f" stroke-width="2" opacity=".5"/>
+          </svg>
+        </div>
+        <div class="body">
+          <span class="tag">Salud · App móvil</span>
+          <h3>Calma Clínica</h3>
+          <p>App de seguimiento de citas y recordatorios para una red de clínicas, pensada para todas las edades.</p>
+          <div class="result">Resultado: <b>+27 %</b> de asistencia a citas</div>
+        </div>
+      </article>
+
+      <article class="work reveal" data-d="2">
+        <div class="art" aria-hidden="true">
+          <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+            <rect width="400" height="300" fill="#14201f"/>
+            <g stroke="#4cc3a6" stroke-width="1.5" opacity=".55">
+              <path d="M0 220 Q100 120 200 190 T400 120"/>
+              <path d="M0 250 Q100 160 200 220 T400 160"/>
+              <path d="M0 190 Q100 90 200 160 T400 80"/>
+            </g>
+            <g fill="#e2673a">
+              <circle cx="102" cy="150" r="7"/>
+              <circle cx="268" cy="178" r="7"/>
+              <circle cx="342" cy="108" r="7"/>
+            </g>
+            <rect x="40" y="40" width="120" height="14" rx="7" fill="#edf1ef" opacity=".85"/>
+            <rect x="40" y="64" width="76" height="10" rx="5" fill="#edf1ef" opacity=".4"/>
+          </svg>
+        </div>
+        <div class="body">
+          <span class="tag">Logística · Plataforma web</span>
+          <h3>Ruta Norte</h3>
+          <p>Plataforma de seguimiento de flotas con mapas en tiempo real y alertas configurables para equipos de operaciones.</p>
+          <div class="result">Resultado: <b>2,1×</b> más entregas a tiempo</div>
+        </div>
+      </article>
+    </div>
+    <p class="note-demo reveal">Proyectos y cifras ficticios, incluidos con fines de demostración del diseño de esta página.</p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contacto" style="padding-top:0">
+  <div class="container">
+    <div class="contact-wrap">
+      <div class="reveal">
+        <span class="eyebrow">Contacto</span>
+        <h2>¿Tienes algo en mente?</h2>
+        <p>Cuéntanos el reto y respondemos en uno o dos días laborables con una primera propuesta de cómo podemos ayudarte.</p>
+        <div class="contact-info">
+          <div><span>Escríbenos</span>hola@meridiano.example</div>
+          <div><span>Estudio</span>Calle Ficticia 12, Ciudad Imaginaria</div>
+        </div>
+      </div>
+
+      <form id="contactForm" class="reveal" data-d="1" novalidate>
+        <div class="field">
+          <label for="nombre">Nombre</label>
+          <input id="nombre" name="nombre" type="text" placeholder="Tu nombre" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="email">Correo electrónico</label>
+          <input id="email" name="email" type="email" placeholder="tu@empresa.com" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="tipo">¿En qué podemos ayudarte?</label>
+          <select id="tipo" name="tipo">
+            <option>Estrategia de producto</option>
+            <option>Diseño de interfaz</option>
+            <option>Desarrollo web o app</option>
+            <option>Datos y analítica</option>
+            <option>Aún no lo sé</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="mensaje">Mensaje</label>
+          <textarea id="mensaje" name="mensaje" placeholder="Cuéntanos brevemente tu proyecto" required></textarea>
+        </div>
+        <button class="btn btn-light" type="submit">Enviar mensaje
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+        <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="foot">
+      <div>
+        <a class="brand" href="#top">
+          <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+            <circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="2"/>
+            <ellipse cx="16" cy="16" rx="6" ry="14" stroke="currentColor" stroke-width="2"/>
+            <circle cx="22" cy="9" r="3.2" fill="#e2673a"/>
+          </svg>
+          Meridiano
+        </a>
+        <p>Estudio de producto digital. Estrategia, diseño y desarrollo con criterio y buen ritmo.</p>
+      </div>
+      <nav aria-label="Pie de página">
+        <a href="#servicios">Servicios</a>
+        <a href="#metodo">Método</a>
+        <a href="#proyectos">Proyectos</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+    </div>
+    <p class="legal">© <span id="year">2026</span> Meridiano. Página de demostración creada con Claude: la marca, los datos de contacto y los proyectos son ficticios.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // Header: borde al hacer scroll
+  var header = document.querySelector('header.site');
+  function onScroll(){ header.classList.toggle('scrolled', window.scrollY > 8); }
+  onScroll();
+  window.addEventListener('scroll', onScroll, {passive:true});
+
+  // Menú móvil
+  var btn = document.getElementById('menuBtn');
+  var menu = document.getElementById('menu');
+  btn.addEventListener('click', function(){
+    var open = menu.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open);
+    btn.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+  });
+  menu.addEventListener('click', function(e){
+    if(e.target.tagName === 'A'){
+      menu.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+      btn.setAttribute('aria-label', 'Abrir menú');
+    }
+  });
+
+  // Animaciones de entrada
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var counters = document.querySelectorAll('[data-count]');
+
+  function runCounter(el){
+    var target = parseInt(el.dataset.count, 10);
+    var suffix = el.dataset.suffix || '';
+    if(reduce){ el.innerHTML = target + (suffix ? '<span>' + suffix + '</span>' : ''); return; }
+    var start = null, dur = 1400;
+    function tick(ts){
+      if(!start) start = ts;
+      var p = Math.min((ts - start) / dur, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.innerHTML = Math.round(target * eased) + (suffix ? '<span>' + suffix + '</span>' : '');
+      if(p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          en.target.classList.add('in');
+          var c = en.target.querySelector('[data-count]');
+          if(c && !c.dataset.done){ c.dataset.done = '1'; runCounter(c); }
+          io.unobserve(en.target);
+        }
+      });
+    }, {threshold:.15});
+    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+    counters.forEach(runCounter);
+  }
+
+  // Formulario (demostración: no se envía a ningún servidor)
+  var form = document.getElementById('contactForm');
+  var status = document.getElementById('formStatus');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var nombre = form.nombre.value.trim();
+    var email = form.email.value.trim();
+    var mensaje = form.mensaje.value.trim();
+    var okEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if(!nombre || !okEmail || !mensaje){
+      status.textContent = 'Revisa los campos: nombre, un correo válido y un mensaje.';
+      return;
+    }
+    status.textContent = 'Gracias, ' + nombre.split(' ')[0] + '. Mensaje recibido (demostración: no se ha enviado a ningún sitio).';
+    form.reset();
+  });
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
